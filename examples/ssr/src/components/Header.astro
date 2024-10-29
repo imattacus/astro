@@ -5,6 +5,11 @@ import { getCart } from '../api';
 
 const cart = await getCart(Astro.request);
 const cartCount = cart.items.reduce((sum, item) => sum + item.count, 0);
+
+function* generator() {
+	yield 1;
+	throw new Error('oops');
+}
 ---
 
 <style>
@@ -44,6 +49,7 @@ const cartCount = cart.items.reduce((sum, item) => sum + item.count, 0);
 		<a href="/login">
 			<span class="material-icons"> login</span>
 		</a>
+		{generator()}
 		<Cart client:idle count={cartCount} />
 	</div>
 </header>
